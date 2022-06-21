@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "689202318973",
+    "project_id": "androiduberremake-b8f12",
+    "storage_bucket": "androiduberremake-b8f12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689202318973:android:1c29e06ad21f3c0d90ab14",
+        "android_client_info": {
+          "package_name": "com.example.androiduberremake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689202318973-q25meo37a64i69uhdt3locf9qb49mgmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz-2Vw8Ak3fw07U1R2zUICm_57YOgXUpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689202318973-q25meo37a64i69uhdt3locf9qb49mgmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
