@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Project/Android Studio/tes001/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Android Project/Android Studio/tes001/app/src/main/res/layout/layout_register.xml" value="0.18" />
         <entry key="..\:/Users/Whiteopen/StudioProjects/AndroidUberRemake/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Whiteopen/StudioProjects/AndroidUberRemake/app/src/main/res/layout/layout_sign_in.xml" value="0.18" />
       </map>

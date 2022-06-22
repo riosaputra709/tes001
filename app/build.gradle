@@ -44,4 +44,14 @@ dependencies {
 
     //FirebaseUI
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+
+    //Material
+    implementation 'com.google.android.material:material:1.1.0'
+
+    //Buterknife
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    //Firebase database
+    implementation 'com.google.firebase:firebase-database:19.3.0'
 }
