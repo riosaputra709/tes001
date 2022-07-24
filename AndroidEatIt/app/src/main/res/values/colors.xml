@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorWhite">#ffff</color>
+    <color name="colorGrapeFruit">#ed5565</color>
+    <color name="colorGrapeFruitDark">#da4453</color>
+    <color name="colorBitterSweet">#fc6e51</color>
+    <color name="colorBitterSweetDark">#e9573f</color>
+    <color name="colorFlower">#ffce54</color>
+    <color name="colorFlowerDark">#f68b42</color>
+    <color name="colorGrass">#a0d468</color>
+    <color name="colorGrassDark">#8cc152</color>
+    <color name="colorBlueJeans">#509cec</color>
+    <color name="colorBlueJeansDark">#4a89dc</color>
+    <color name="colorLavender">#ac92ec</color>
+    <color name="colorLavenderDark">#967adc</color>
+    <color name="btnSignUp">#39796B</color>
+    <color name="btnSignActive">#a9d440</color>
+
+    <color name="overlayBackground">#7f333639</color>
+    <color name="overlayActionBar">#0e0d0e</color>
+
+    <color name="overlay_color">#55333639</color>
+    <color name="border_color">#aa333639</color>
+</resources>
