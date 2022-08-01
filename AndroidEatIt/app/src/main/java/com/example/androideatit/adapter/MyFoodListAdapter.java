@@ -11,8 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.androideatit.Common.Common;
+import com.example.androideatit.EventBus.FoodItemClick;
 import com.example.androideatit.Model.FoodModel;
 import com.example.androideatit.R;
+import com.example.androideatit.callback.IRecyclerClickListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -45,12 +50,11 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
         holder.txt_food_name.setText(new StringBuilder("")
                 .append(foodModelList.get(position).getName()));
 
-        /*//event
+        //event
         holder.setListener((view, pos) -> {
-            Common.categorySelected = foodModelList.get(pos);
-            Common.categorySelected.setKey(String.valueOf(pos));
-            EventBus.getDefault().postSticky(new MateriItemClick(true,materiModelList.get(pos)));
-        });*/
+            Common.selectedFood = foodModelList.get(pos);
+            EventBus.getDefault().postSticky(new FoodItemClick(true,foodModelList.get(pos)));
+        });
     }
 
     @Override
@@ -58,7 +62,7 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
         return foodModelList.size();
     }
 
-    public class MyVieewHolder extends RecyclerView.ViewHolder{
+    public class MyVieewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Unbinder unbinder;
         @BindView(R.id.txt_food_name)
         TextView txt_food_name;
@@ -71,10 +75,21 @@ public class MyFoodListAdapter extends RecyclerView.Adapter<MyFoodListAdapter.My
         @BindView(R.id.img_quick_cart)
         ImageView img_cart;
 
+        IRecyclerClickListener listener;
+
+        public void setListener(IRecyclerClickListener listener) {
+            this.listener = listener;
+        }
 
         public MyVieewHolder(@NonNull View itemView) {
             super(itemView);
             unbinder = ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            listener.onItemClickListener(view, getAdapterPosition());
         }
     }
 }

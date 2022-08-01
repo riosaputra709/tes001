@@ -1,5 +1,6 @@
 package com.example.androidchatapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -12,24 +13,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.androidchatapp.Common.Common;
 import com.example.androidchatapp.Listener.IFirebaseLoadFailed;
 import com.example.androidchatapp.Listener.ILoadTimeFromFirebaseListener;
+import com.example.androidchatapp.Model.ChatInfoModel;
 import com.example.androidchatapp.Model.ChatMessageModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFirebaseListener {
 
     private static final int MY_CAMERA_REQUEST_CODE = 7171;
     private static final int MY_RESULT_LOAD_IMAGE = 7172;
@@ -110,5 +120,101 @@ public class ChatActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });
+    }
+
+    @Override
+    public void onLoadOnlyTimeSuccess(long estimateTimeInMs) {
+        ChatMessageModel chatMessageModel = new ChatMessageModel();
+        chatMessageModel.setName(Common.getName(Common.currentUser));
+        chatMessageModel.setContent(edt_chat.getText().toString());
+        chatMessageModel.setTimeStamp(estimateTimeInMs);
+        chatMessageModel.setSenderId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        //current, we just implement chat text
+        chatMessageModel.setPicture(false);
+        submitChatToFirebase(chatMessageModel, chatMessageModel.isPicture(), estimateTimeInMs);
+    }
+
+    private void submitChatToFirebase(ChatMessageModel chatMessageModel, boolean isPicture, long estimateTimeInMs) {
+
+        chatRef.child(Common.generateChatRoomId(Common.chatUser.getUid(),
+                FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists())
+                            appendChat(chatMessageModel, isPicture, estimateTimeInMs);
+                        else
+                            createChat(chatMessageModel, isPicture, estimateTimeInMs);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(ChatActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    private void createChat(ChatMessageModel chatMessageModel, boolean isPicture, long estimateTimeInMs) {
+        ChatInfoModel chatInfoModel = new ChatInfoModel();
+        chatInfoModel.setCreateId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        chatInfoModel.setFriendName(Common.getName(Common.chatUser));
+        chatInfoModel.setFriendId(Common.chatUser.getUid());
+        chatInfoModel.setCreateName(Common.getName(Common.currentUser));
+
+        //only text
+        chatInfoModel.setLastMessage(chatMessageModel.getContent());
+
+        chatInfoModel.setLastUpdate(estimateTimeInMs);
+        chatInfoModel.setCreateDate(estimateTimeInMs);
+
+        //submit on firebase
+        //add on user chat list
+        FirebaseDatabase.getInstance()
+                .getReference(Common.CHAT_LIST_REFERENCE)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(Common.chatUser.getUid())
+                .setValue(chatInfoModel)
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                })
+                .addOnSuccessListener(unused -> {
+                    //submt success for ChatInfo
+                    //copy to friend chat list
+                    FirebaseDatabase.getInstance()
+                            .getReference(Common.CHAT_LIST_REFERENCE)
+                            .child(Common.chatUser.getUid()) //swap
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()) //swap
+                            .setValue(chatInfoModel)
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnSuccessListener(unused1 -> {
+
+                                //add on chat ref
+                                chatRef.child(Common.generateChatRoomId(Common.chatUser.getUid(),
+                                        FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                                        .child(Common.CHAT_DETAIL_REFERENCE)
+                                        .push()
+                                        .setValue(chatMessageModel)
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnCompleteListener(task -> {
+                                            if (task.isSuccessful())
+                                            {
+                                                //clear
+                                                edt_chat.setText("");
+                                                edt_chat.requestFocus();
+                                                if (adapter != null)
+                                                {
+                                                    adapter.notifyDataSetChanged();
+                                                }
+                                            }
+                                        });
+
+                            });
+                });
     }
 }

@@ -4,34 +4,69 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androideatit.databinding.FragmentSlideshowBinding;
+import com.example.androideatit.Common.Common;
+import com.example.androideatit.Model.FoodModel;
+import com.example.androideatit.R;
+import com.example.androideatit.adapter.MyFoodListAdapter;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class FoodListFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FoodListViewModel foodListViewModel;
+
+    Unbinder unbinder;
+    @BindView(R.id.recycler_food_list)
+    RecyclerView recycler_food_list;
+
+    LayoutAnimationController layoutAnimationController;
+    MyFoodListAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        FoodListViewModel slideshowViewModel =
+        foodListViewModel =
                 new ViewModelProvider(this).get(FoodListViewModel.class);
-
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        View root = inflater.inflate(R.layout.fragment_food_list, container, false);
+        unbinder = ButterKnife.bind(this,root);
+        initViews();
+        foodListViewModel.getMutableLiveDataFoodList().observe(this, new Observer<List<FoodModel>>() {
+            @Override
+            public void onChanged(List<FoodModel> foodModels) {
+                adapter = new MyFoodListAdapter(getContext(), foodModels);
+                recycler_food_list.setAdapter(adapter);
+                recycler_food_list.setLayoutAnimation(layoutAnimationController);
+            }
+        });
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void initViews() {
+
+        ((AppCompatActivity)getActivity())
+                .getSupportActionBar()
+                        .setTitle(Common.categorySelected.getName());
+
+        recycler_food_list.setHasFixedSize(true);
+        recycler_food_list.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        layoutAnimationController = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_item_from_left);
+
     }
+
 }

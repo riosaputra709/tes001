@@ -8,6 +8,7 @@ import android.text.style.StyleSpan;
 import android.widget.TextView;
 
 import com.example.androideatit.Model.CategoryModel;
+import com.example.androideatit.Model.FoodModel;
 import com.example.androideatit.Model.UserModel;
 
 public class Common {
@@ -20,6 +21,7 @@ public class Common {
     public static final int FULL_WIDTH_COLUMN = 1;
     public static final String COMMENT_REF = "Comment";
     public static CategoryModel categorySelected;
+    public static FoodModel selectedFood;
 
 
     public static void setSpanString(String welcome, String name, TextView textView) {

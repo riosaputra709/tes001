@@ -21,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.androideatit.Common.Common;
 import com.example.androideatit.EventBus.CategoryClick;
+import com.example.androideatit.EventBus.FoodItemClick;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -53,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_menu, R.id.nav_food_list)
+                R.id.nav_home, R.id.nav_menu, R.id.nav_food_list, R.id.nav_food_detail)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -130,7 +131,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     {
         if(event.isSuccess())
         {
-            Toast.makeText(this, "Click to "+event.getCategoryModel().getName(), Toast.LENGTH_SHORT).show();
+            navController.navigate(R.id.nav_food_list);
+            //Toast.makeText(this, "Click to "+event.getCategoryModel().getName(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Subscribe (sticky = true, threadMode = ThreadMode.MAIN)
+    public void onFoodItemClick(FoodItemClick event)
+    {
+        if(event.isSuccess())
+        {
+            navController.navigate(R.id.nav_food_detail);
         }
     }
 
