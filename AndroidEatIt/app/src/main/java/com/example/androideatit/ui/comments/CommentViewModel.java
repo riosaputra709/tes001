@@ -8,19 +8,19 @@ import com.example.androideatit.Model.CommentModel;
 import java.util.List;
 
 public class CommentViewModel extends ViewModel {
-    private MutableLiveData<List<CommentModel>> mutableLiveDataMateriList;
+    private MutableLiveData<List<CommentModel>> mutableLiveDataFoodList;
 
     public CommentViewModel() {
-        mutableLiveDataMateriList = new MutableLiveData<>();
+        mutableLiveDataFoodList = new MutableLiveData<>();
     }
 
     public MutableLiveData<List<CommentModel>> getMutableLiveDataMateriList() {
-        return mutableLiveDataMateriList;
+        return mutableLiveDataFoodList;
     }
 
     public void setCommentList(List<CommentModel> commentList)
     {
-        mutableLiveDataMateriList.setValue(commentList);
+        mutableLiveDataFoodList.setValue(commentList);
     }
 
 }

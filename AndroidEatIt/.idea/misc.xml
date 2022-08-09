@@ -3,12 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/bottom_sheet_comment_fragment.xml" value="0.2" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/fragment_food_detail.xml" value="0.18" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/fragment_food_list.xml" value="0.2" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/fragment_menu.xml" value="0.2" />
+        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_addon_display.xml" value="0.16" />
+        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_addon_item.xml" value="0.16324786324786325" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_category_item.xml" value="0.19444444444444445" />
+        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_chip_with_delete_icon.xml" value="0.19895833333333332" />
+        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_comment_item.xml" value="0.2" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_food_item.xml" value="0.2" />
-        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_rating.xml" value="0.1" />
+        <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/layout_rating.xml" value="0.15" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/layout/nav_header_home.xml" value="0.2" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/menu/activity_home_drawer.xml" value="0.2" />
         <entry key="..\:/Android Project/Android Studio/tes001/AndroidEatIt/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />

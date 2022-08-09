@@ -14,17 +14,24 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.CommentModel;
 import com.example.androideatit.R;
 import com.example.androideatit.adapter.MyCommentAdapter;
 import com.example.androideatit.callback.ICommentCallbackListener;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dmax.dialog.SpotsDialog;
 
 public class CommentFragment extends BottomSheetDialogFragment implements ICommentCallbackListener {
 
@@ -41,12 +48,12 @@ public class CommentFragment extends BottomSheetDialogFragment implements IComme
         listener = this;
     }
 
-    private static CommentFragment intance;
+    private static CommentFragment instance;
 
     public static CommentFragment getInstance() {
-        if (intance == null)
-            intance = new CommentFragment();
-        return intance;
+        if (instance == null)
+            instance = new CommentFragment();
+        return instance;
     }
 
     @Nullable
@@ -66,11 +73,11 @@ public class CommentFragment extends BottomSheetDialogFragment implements IComme
     }
 
     private void loadCommentFromFirebase() {
-        /*dialog.show();
+        dialog.show();
         List<CommentModel> commentModels = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference(Common.COMMENT_REF)
-                .child(Common.selectedMateri.getId())
-                .orderByChild("waktuKomentar")
+                .child(Common.selectedFood.getId())
+                .orderByChild("serverTimeStamp")
                 .limitToLast(100)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -87,12 +94,12 @@ public class CommentFragment extends BottomSheetDialogFragment implements IComme
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                         listener.onCommentLoadFailed(databaseError.getMessage());
                     }
-                });*/
+                });
     }
 
     private void initviews() {
         commentViewModel = ViewModelProviders.of(this).get(CommentViewModel.class);
-        //dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false).build();
+        dialog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false).build();
 
         recycler_comment.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, true);
@@ -109,6 +116,7 @@ public class CommentFragment extends BottomSheetDialogFragment implements IComme
 
     @Override
     public void onCommentLoadFailed(String message) {
+        dialog.dismiss();
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

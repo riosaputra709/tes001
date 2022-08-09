@@ -11,6 +11,9 @@ import com.example.androideatit.Model.CategoryModel;
 import com.example.androideatit.Model.FoodModel;
 import com.example.androideatit.Model.UserModel;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class Common {
     public static final String USER_REF = "User";
     public static final String BEST_DEALS_REF = "BestDeals";
@@ -32,5 +35,17 @@ public class Common {
         spannableString.setSpan(boldspan,0,name.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.append(spannableString);
         textView.setText(builder,TextView.BufferType.SPANNABLE);
+    }
+
+    public static String formatPrice(double price) {
+        if (price != 0)
+        {
+            DecimalFormat df = new DecimalFormat("#,##0.00");
+            df.setRoundingMode(RoundingMode.UP);
+            String finalPrice = new StringBuilder(df.format(price)).toString();
+            return finalPrice.replace(".", ",");
+        }
+        else
+            return "0,00";
     }
 }

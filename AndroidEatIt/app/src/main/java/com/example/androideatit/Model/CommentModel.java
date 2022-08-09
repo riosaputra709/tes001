@@ -3,35 +3,35 @@ package com.example.androideatit.Model;
 import java.util.Map;
 
 public class CommentModel {
-    private float nilaiRating;
-    private String komentar,nama,uid;
-    private Map<String,Object> waktuKomentar;
+    private float ratingValue;
+    private String comment,name,uid;
+    private Map<String,Object> commentTimeStamp;
 
     public CommentModel() {
     }
 
-    public float getNilaiRating() {
-        return nilaiRating;
+    public float getRatingValue() {
+        return ratingValue;
     }
 
-    public void setNilaiRating(float nilaiRating) {
-        this.nilaiRating = nilaiRating;
+    public void setRatingValue(float ratingValue) {
+        this.ratingValue = ratingValue;
     }
 
-    public String getKomentar() {
-        return komentar;
+    public String getComment() {
+        return comment;
     }
 
-    public void setKomentar(String komentar) {
-        this.komentar = komentar;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public String getNama() {
-        return nama;
+    public String getName() {
+        return name;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUid() {
@@ -42,11 +42,11 @@ public class CommentModel {
         this.uid = uid;
     }
 
-    public Map<String, Object> getWaktuKomentar() {
-        return waktuKomentar;
+    public Map<String, Object> getCommentTimeStamp() {
+        return commentTimeStamp;
     }
 
-    public void setWaktuKomentar(Map<String, Object> waktuKomentar) {
-        this.waktuKomentar = waktuKomentar;
+    public void setCommentTimeStamp(Map<String, Object> commentTimeStamp) {
+        this.commentTimeStamp = commentTimeStamp;
     }
 }

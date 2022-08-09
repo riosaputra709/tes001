@@ -39,11 +39,11 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Long timeStamp = Long.valueOf(commentModelList.get(position).getWaktuKomentar().get("waktu").toString());
+        Long timeStamp = Long.valueOf(commentModelList.get(position).getCommentTimeStamp().get("timeStamp").toString());
         holder.txt_comment_date.setText(DateUtils.getRelativeTimeSpanString(timeStamp));
-        holder.txt_comment.setText(commentModelList.get(position).getKomentar());
-        holder.txt_comment_name.setText(commentModelList.get(position).getNama());
-        holder.rating_bar.setRating(commentModelList.get(position).getNilaiRating());
+        holder.txt_comment.setText(commentModelList.get(position).getComment());
+        holder.txt_comment_name.setText(commentModelList.get(position).getName());
+        holder.rating_bar.setRating(commentModelList.get(position).getRatingValue());
     }
 
     @Override
