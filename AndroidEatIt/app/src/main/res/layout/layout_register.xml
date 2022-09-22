@@ -36,6 +36,7 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:hint="Phone"
             android:id="@+id/edt_phone_no"
             android:focusable="false"
             android:layout_width="match_parent"

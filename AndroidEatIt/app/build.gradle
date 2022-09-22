@@ -64,12 +64,20 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    implementation 'com.github.andremion:counterfab:1.2.0'
+    //implementation 'com.github.andremion:counterfab:1.2.0'
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
 
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.asksira.android:loopingviewpager:1.1.4'
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.3'
+
+    implementation 'androidx.room:room-rxjava2:2.2.0-rc01'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    annotationProcessor 'androidx.room:room-compiler:2.2.0-rc01'
+
+    implementation 'com.github.andremion:counterfab:1.2.2-alpha1'
+
+    implementation 'com.google.code.gson:gson:2.8.7'
 
 }
 apply plugin: 'com.google.gms.google-services'
